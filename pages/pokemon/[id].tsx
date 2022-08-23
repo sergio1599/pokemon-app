@@ -2,7 +2,15 @@ import { Layout } from "../../components/layouts";
 import { NextPage, GetStaticProps } from "next";
 import { GetStaticPaths } from "next";
 import { pokeApi } from "../../api";
-import { Button, Card, Container, Grid, Image, Text } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  Container,
+  Grid,
+  Image,
+  Spacer,
+  Text,
+} from "@nextui-org/react";
 import { Pokemon } from "../../interfaces";
 
 interface Props {
@@ -11,10 +19,10 @@ interface Props {
 
 export const PokemonPage: NextPage<Props> = ({ pokemon }) => {
   return (
-    <Layout title="Algun pokemon">
+    <Layout title={pokemon.name}>
       <Grid.Container css={{ marginTop: "5px" }} gap={2}>
         <Grid xs={12} sm={4}>
-          <Card hoverable css={{ padding: "30px" }}>
+          <Card hoverable css={{ padding: "30px", alignSelf:"center" }}>
             <Card.Body>
               <Card.Image
                 src={
@@ -34,7 +42,7 @@ export const PokemonPage: NextPage<Props> = ({ pokemon }) => {
               css={{ display: "flex", justifyContent: "space-between" }}
             >
               <Text h1 transform="capitalize">
-                {pokemon.name}
+                {pokemon.name} #{pokemon.id}
               </Text>
               <Button color="gradient" ghost>
                 Guardar en favoritos
@@ -67,6 +75,30 @@ export const PokemonPage: NextPage<Props> = ({ pokemon }) => {
                   width={100}
                   height={100}
                 />
+              </Container>
+            </Card.Body>
+            <Card.Body>
+              <Text size={30}>Types:</Text>
+              <Container direction="row" display="flex" gap={0}>
+                {pokemon.types.map((it, index) => {
+                  return (
+                    <Text size={20} key={index} transform="capitalize">
+                      {it.type.name}
+                    </Text>
+                  );
+                })}
+              </Container>
+            </Card.Body>
+            <Card.Body>
+              <Text size={30}>Movimientos:</Text>
+              <Container direction="row" display="flex">
+                {pokemon.moves.map((it, index) => {
+                  return (
+                    <Text size={20} key={index} transform="capitalize">
+                      {it.move.name}
+                    </Text>
+                  );
+                })}
               </Container>
             </Card.Body>
           </Card>

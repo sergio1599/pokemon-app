@@ -3,7 +3,7 @@ import { Layout } from "../components/layouts";
 import { pokeApi } from "../api";
 import { PokemonListResponse } from "../interfaces";
 import { SmallPokemon } from "../interfaces/pokemon-list";
-import { Card, Grid, Row, Text } from "@nextui-org/react";
+import { Grid, Image } from "@nextui-org/react";
 import { PokemonCard } from "../components/pokemon";
 
 interface Props {

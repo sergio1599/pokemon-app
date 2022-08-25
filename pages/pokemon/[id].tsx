@@ -61,16 +61,20 @@ export const PokemonPage: NextPage<Props> = ({ pokemon }) => {
             <Card.Header
               css={{ display: "flex", justifyContent: "space-between" }}
             >
-              <Text h1 transform="capitalize">
-                {pokemon.name} #{pokemon.id}
-              </Text>
-              <Button
-                color="gradient"
-                ghost={!isInFavorites}
-                onClick={onToogleFavorite}
-              >
-                {isInFavorites ? "En favoritos" : "Guardar en favoritos"}
-              </Button>
+              <Grid direction="row" md={12}>
+                <Text h1 transform="capitalize">
+                  {pokemon.name} #{pokemon.id}
+                </Text>
+
+                <Button
+                  css={{ marginTop: "20px", marginLeft: "auto" }}
+                  color="gradient"
+                  ghost={!isInFavorites}
+                  onClick={onToogleFavorite}
+                >
+                  {isInFavorites ? "En favoritos" : "Guardar en favoritos"}
+                </Button>
+              </Grid>
             </Card.Header>
             <Card.Body>
               <Text size={30}>Sprites:</Text>

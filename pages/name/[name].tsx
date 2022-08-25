@@ -10,12 +10,13 @@ import { localFavorites } from "../../utils";
 
 import { pokeApi } from "../../api";
 import confetti from "canvas-confetti";
+import { PokemonListResponse } from "../../interfaces/pokemon-list";
 
 interface Props {
   pokemon: Pokemon;
 }
 
-export const PokemonPage: NextPage<Props> = ({ pokemon }) => {
+export const PokemonPageByName: NextPage<Props> = ({ pokemon }) => {
   const [isInFavorites, setisInFavorites] = useState(
     localFavorites.existInFavorites(pokemon.id)
   );
@@ -133,19 +134,21 @@ export const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
-  const pokemons151 = [...Array(151)].map((value, index) => `${index + 1}`);
+  const { data } = await pokeApi.get<PokemonListResponse>(`/pokemon?limit=151`);
+  const pokemonName: string[] = data.results.map((pokemon) => pokemon.name);
 
   return {
-    paths: pokemons151.map((id) => ({
-      params: { id },
+    paths: pokemonName.map((name) => ({
+      params: { name },
     })),
     fallback: false,
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { id } = params as { id: string };
-  const { data } = await pokeApi.get<Pokemon>(`/pokemon/${id}`);
+  const { name } = params as { name: string };
+  const { data } = await pokeApi.get<Pokemon>(`/pokemon/${name}`);
+  console.log("pokemones" + data);
 
   return {
     props: {
@@ -154,4 +157,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-export default PokemonPage;
+export default PokemonPageByName;

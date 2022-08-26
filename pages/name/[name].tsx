@@ -152,7 +152,7 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { name } = params as { name: string };
 
-  const pokemon = await getPokemonInfo(name);
+  const pokemon = await getPokemonInfo(name.toLowerCase());
   if (!pokemon) {
     return {
       redirect: {
@@ -166,7 +166,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       pokemon,
     },
-    revadilate: 86400,
   };
 };
 

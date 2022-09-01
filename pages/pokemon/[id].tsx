@@ -152,11 +152,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { id } = params as { id: string };
 
   const pokemon = await getPokemonInfo(id);
-  
+
   if (!pokemon) {
     return {
       redirect: {
-        destination: '/',
+        destination: "../404.tsx",
         permanent: false,
       },
     };
@@ -164,7 +164,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: {
-      pokemon
+      pokemon,
     },
     revalidate: 86400,
   };
